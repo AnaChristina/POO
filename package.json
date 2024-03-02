@@ -1,0 +1,12 @@
+{
+  "name": "pacote",
+  "version": "1.0.0",
+  "description": "Repositório para guardar anotações sobre Programação Orientada a Objeto. Informações tiradas do canal Curso em Video, na playlist de POO usando Java, com o Professor Guanabara.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
