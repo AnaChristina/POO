@@ -1,0 +1,4 @@
+[submodule "submodulo/atividade1"]
+	path = submodulo/atividade1
+	url = https://github.com/AnaChristina/POO.git
+	branch = atv1
