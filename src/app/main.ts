@@ -4,9 +4,11 @@ import Empresa from "../modelo/empresa"
 import Produto from "../modelo/produto";
 import CadastroCliente from "../negocio/cadastroCliente";
 import CadastroProduto from "../negocio/cadastroProduto";
+import CadastroServico from "../negocio/cadastroServico";
 import listagemClientes from "../negocio/listagemClientes";
 import ListagemClientes from "../negocio/listagemClientes";
 import ListagemProdutos from "../negocio/listagemProdutos";
+import ListagemServicos from "../negocio/ListagemServiços";
 
 console.log(`Bem-vindo ao cadastro de clientes do Grupo World Beauty`)
 let empresa = new Empresa()
@@ -20,12 +22,13 @@ while (execucao) {
     console.log("4 - Listar todos os clientes femininos");
     console.log("5 - Cadastrar produto");
     console.log("6 - Cadastrar serviço");
-    console.log("7 - registrar compra/consumo do cliente");
-    console.log("8 - Listar todos os produtos"); //Listagem geral dos serviços ou produtos mais consumidos.
-    console.log("9 - Listar serviços mais consumidos por gênero"); //Listagem dos serviços ou produtos mais consumidos por gênero pode ser M e F juntos no msm console
-    console.log("10 - Clientes com menos consumo em quantidade"); //Listagem dos 10 clientes que menos consumiram produtos ou serviços.
+    console.log("7 - registrar compra/consumo de produto do cliente"); //Criar mais um para registrar consumo de serviço.
+   // console.log("7 - registrar compra/consumo de serviços do cliente"); 
+    console.log("8 - Listar todos os produtos e serviços"); //Listagem geral dos serviços ou produtos mais consumidos.
+    console.log("9 - Listar serviços e produtos mais consumidos por gênero"); //Listagem dos serviços ou produtos mais consumidos por gênero pode ser M e F juntos no msm console
+    console.log("10 - Clientes com menos consumo em quantidade"); //Listagem dos 10 clientes que menos consumiram produtos e serviços.
     console.log("11 - Clientes com mais consumo em valor"); //Listagem dos 5 clientes que mais consumiram em valor, não em quantidade.
-    console.log("12 - Produtos mais consumidos");
+    console.log("12 - Produtos e Serviços mais consumidos");
 
     console.log(`0 - Sair`);
 
@@ -58,7 +61,8 @@ while (execucao) {
             cadastroProduto.cadastrar()
             break;
         case 6:
-            // cadastrar serviço
+            let cadastrarServico = new CadastroServico(empresa.getServicos)
+            cadastrarServico.cadastrar()
             break;
 
         case 7:
@@ -83,25 +87,49 @@ while (execucao) {
                 console.log("Cliente não encontrado.");
             }
             break;
+        case 100:
+            let cpfClienteServico = entrada.receberTexto(`Digite o CPF do cliente: `);
+            let clienteSelecionadoServico = empresa.getClientes.find(cliente => cliente.getCpf.getValor === cpfClienteServico);
+
+            if (clienteSelecionadoServico) {
+                let servicoConsumido = entrada.receberTexto(`Digite o serviço consumido: `);
+                let servicoSelecionado = empresa.getServicos.find(servico => servico.getNome === servicoConsumido);
+
+                if (servicoSelecionado) {
+                    clienteSelecionadoServico.adicionarServicoConsumido(servicoSelecionado);
+                    servicoSelecionado.adicionarConsumo();
+                    console.log(`Quantidade consumida do servico ${servicoSelecionado.getNome}: ${servicoSelecionado.getQuantidadeConsumida}`);
+                    console.log("Compra/consumo registrada com sucesso! 🤩");
+                    console.log("------------------------------------------\n")
+                } else {
+                    console.log("Serviço não encontrado.\n");
+                }
+            }
+            else {
+                console.log("Cliente não encontrado.");
+            }
+            break;
 
         case 8:
             let ListaProdutos = new ListagemProdutos(empresa.getProdutos); //Mudar p Listagem geral dos produtos mais consumidos dps
             ListaProdutos.listar();
+
+            let ListaServicos = new ListagemServicos(empresa.getServicos);
+            ListaServicos.listar();
             //os produtos consumidos esta em lista, então tenho que ver o tamanho da lista dos produtos (lenght) e comparar. Montar lista do mais consumido até o menos. 
-            
             break;
             
         case 9:
-            // Listar produtos mais consumidos por gênero
+            // Listar produtos e os serviçoooos mais consumidos por gênero
             const listagemConsumoGenero = new ListagemClientes(empresa.getClientes);
-            listagemConsumoGenero.listarItensMaisConsumidosPorGenero("M"); // Para gênero Masculino
-            listagemConsumoGenero.listarItensMaisConsumidosPorGenero("F"); // Para gênero Feminino
+            listagemConsumoGenero.listarItensMaisConsumidosPorGenero("M");
+            listagemConsumoGenero.listarItensMaisConsumidosPorGenero("F");
             break;
-
-            //Listagem dos serviços ou produtos mais consumidos por gênero pode ser M e F juntos no msm console
+            //Listagem dos serviços e produtos mais consumidos por gênero pode ser M e F juntos no msm console
                 
         case 10:
-            ListagemClientes.listarTop5ClientesMenosConsumidores(empresa.getClientes);
+            let listagemMenosConsumidores = new ListagemClientes(empresa.getClientes);
+            listagemMenosConsumidores.listarTop5ClientesMenosConsumidores();
             break;
 
         case 11://Listagem dos 5 clientes que mais consumiram em valor, não em quantidade.
@@ -112,6 +140,9 @@ while (execucao) {
         case 12:
             let MaisConsumido = new ListagemProdutos(empresa.getProdutos);
             MaisConsumido.listarProdutosMaisConsumidos();
+
+            let MaisConsumidoServico = new ListagemServicos(empresa.getServicos);
+            MaisConsumidoServico.listarServicosMaisConsumidos();
             break;
         
 

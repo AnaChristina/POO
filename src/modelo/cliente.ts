@@ -36,6 +36,7 @@ export default class Cliente {
 
     public adicionarServicoConsumido(servico: Servico): void {
         this.servicosConsumidos.push(servico);
+        this.valorTotalConsumido += servico.valor;
     }
 
 

@@ -99,10 +99,13 @@ export default class ListagemClientes extends Listagem {
         console.log("-------------------------------\n");
     }
 
-    public static listarTop5ClientesMenosConsumidores(clientes: Array<Cliente>): void {
+    public listarTop5ClientesMenosConsumidores(): void {
         // Ordenar os clientes pelo número de itens consumidos em ordem crescente
-        const clientesOrdenados = clientes.sort((a, b) => a.getProdutosConsumidos.length - b.getProdutosConsumidos.length);
-    
+        const clientesOrdenados = this.clientes.sort((a, b) =>
+            (a.getProdutosConsumidos.length + a.getServicosConsumidos.length) -
+            (b.getProdutosConsumidos.length + b.getServicosConsumidos.length)
+        );
+
         // Listar os 5 primeiros clientes da lista ordenada
         console.log("\nTop 5 clientes menos consumidores:");
         console.log("----------------------------------📍");
@@ -110,8 +113,9 @@ export default class ListagemClientes extends Listagem {
         console.log("----------------------------------");
         for (let i = 0; i < Math.min(clientesOrdenados.length, 5); i++) {
             const cliente = clientesOrdenados[i];
-            console.log(`${cliente.nome}\t\t\t${cliente.getProdutosConsumidos.length}`);
+            const totalConsumido = cliente.getProdutosConsumidos.length + cliente.getServicosConsumidos.length;
+            console.log(`${cliente.nome}\t\t\t${totalConsumido}`);
         }
         console.log("----------------------------------📍\n");
-    }  
+    }
 }
