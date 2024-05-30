@@ -4,7 +4,7 @@
 Você pode encontrar meus códigos na branch [Atv1](https://github.com/AnaChristina/POO/tree/atv1).
 
 ### Atividade 2
-Você pode encontrar meus códigos na branch [Atv2]().
+Você pode encontrar meus códigos na branch [Atv2](https://github.com/AnaChristina/Programacao-Orientada-Objeto/tree/atv2).
 
 ### Atividade 3
 Você pode encontrar meus códigos na branch [Atv3]().
