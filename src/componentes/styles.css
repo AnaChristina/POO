@@ -1,0 +1,120 @@
+.custom-form-spacing .row {
+    margin-bottom: 0;
+}
+
+.custom-form-spacing .row input {
+    margin-bottom: 0; 
+}
+.custom-form-spacing .row > div {
+    margin-bottom: 5px;
+}
+
+.background-color{
+    background-color: blueviolet;
+}
+
+.btn-limpar{
+    color:white;
+    font-weight: bold;
+    background-color: #D9D9D9;
+    border-radius: 30px;
+    margin-right: 10%;
+    width: 197px;
+}
+
+.custom-icon-pink{
+    color: #E71894;
+    font-size: 30px; 
+}
+.custom-icon-blue{
+    color: #0057FF;
+    font-size: 30px; 
+}
+
+.btn-cadastrar{
+    color:white;
+    font-weight: bold;
+    background-color: #F176DD;
+    border-radius: 30px;
+    width: 197px;
+}
+
+.titulo{
+    font-size: 30px;
+    font-weight:500;
+    margin-left: 10px
+
+}
+.titulo2{
+    font-size: 25px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+.titulo3{
+    color: #E71894;
+    font-size: 18px;
+}
+
+.campo{
+    border-radius: 5px;
+}
+
+
+/* PAGINA CLIENTES*/
+
+.content-pesquisa{
+
+}
+.mr{
+    display: flex;
+    justify-content: end;
+}
+
+.btn-consumo{
+    background-color: #F176DD;
+    font-weight: 500;
+    border-radius: 30px;
+}
+
+.margin-left{
+    margin-left: 15px;
+}
+.margin-right{
+    margin-right: 15px;
+}
+
+/*CADASTRAR CLIENTE*/
+
+.sombra{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.custom-form-width {
+    width: 97%; /* ou qualquer largura desejada */
+    margin: 0 auto; /* Isso centralizará a div horizontalmente na página */
+}
+.espaco{
+    margin-top: 35px;
+}
+
+/* Pagina Produtos */
+
+.border-select{
+    border-radius: 30px;
+}
+
+/* Registro consumos*/
+.mtop{
+    margin-top: 35px;
+}
+
+.mright{
+    margin-right: 5%;
+}
+
+.dados-cliente{
+    font-size: 18px;
+    font-weight: bold;
+    
+}
