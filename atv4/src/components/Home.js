@@ -133,20 +133,27 @@ export default function Home() {
     return (
         <div>
             <div className="row">
-                <form className="col s12" onSubmit={PesquisaCliente}>
+            <form className="col s12" onSubmit={PesquisaCliente}>
                     <div className="row">
                         <div className="input-field col s6">
-                            <input placeholder="PESQUISAR CLIENTE" id="id" validate="idPesquisa" type="text" className="validate" onChange={(e) => setIdPesquisa(e.target.value)} />
+                            <input
+                                placeholder="PESQUISAR CLIENTE"
+                                id="id"
+                                type="text"
+                                className="validate"
+                                value={id}
+                                onChange={(e) => setIdPesquisa(e.target.value)}
+                            />
                         </div>
                     </div>
-                    <button className="btn waves-effect" type="button" name="action" onClick={PesquisaCliente}>Pesquisar
+                    <button className="btn waves-effect" type="submit" name="action">Pesquisar
                         <i className="material-icons right">search</i>
                     </button>
                 </form>
             </div>
 
             <div>
-                <label className="txt">Lista de clientes</label><hr />
+            <label className="txt">Lista de clientes</label><hr />
                 <div>
                     <table className="striped responsive-table centered">
                         <thead className="cabecalho">
@@ -155,10 +162,11 @@ export default function Home() {
                                 <th>Nome</th>
                                 <th>E-mail</th>
                                 <th>Telefone</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="cliente-list">
-                        {clientes.length > 0 ? (
+                            {clientes.length > 0 ? (
                                 clientes.map(cliente => (
                                     <tr key={cliente.id}>
                                         <td>{cliente.id}</td>
@@ -166,7 +174,8 @@ export default function Home() {
                                         <td>{cliente.email}</td>
                                         <td>{cliente.telefones.length > 0 ? `(${cliente.telefones[0].ddd}) ${cliente.telefones[0].numero}` : '-'}</td>
                                         <td>
-                                            <a className="waves-effect waves-light btn"onClick={() => VerMais(cliente.id)}>Ver mais</a>
+                                            <button className="waves-effect waves-light btn" onClick={() => VerMais(cliente.id)}>Ver mais</button>
+                                            <button className="waves-effect waves-light btn red" onClick={() => Excluir(cliente.id)}>Excluir</button>
                                         </td>
                                     </tr>
                                 ))
@@ -175,113 +184,82 @@ export default function Home() {
                                     <td colSpan="5">Nenhum cliente encontrado</td>
                                 </tr>
                             )}
-
-                            
                         </tbody>
                     </table>
                 </div>
             </div>
             {clienteSelecionado && (
-        <div className="row">
-        <form className="col s12" onSubmit={Atualizar}>
-        <h2>Detalhes do Cliente</h2>
+                <div className="row">
+                    <form className="col s12" onSubmit={Atualizar}>
+                        <h2>Detalhes do Cliente</h2>
 
-
-        <p>Aqui você consegue visualizar todos os dados cadastrados do cliente, Atualizar e Excluir.</p><br></br>
-        <div className="row">
-            <div className="input-field col s6">
-            <input id="id" type="text" value={clienteSelecionado.id} />
-            <label htmlFor="id" className="active">ID</label>
-            </div>
-            <div className="input-field col s6">
-            <input id="nome" type="text" value={clienteSelecionado.nome}  onChange={handleChange} />
-            <label htmlFor="nome" className="active">Nome</label>
-            </div>
-        </div>
-        <div className="row">
-            <div className="input-field col s6">
-            <input id="sobreNome" type="text" value={clienteSelecionado.sobreNome}  onChange={handleChange} />
-            <label htmlFor="sobreNome" className="active">Sobrenome</label>
-            </div>
-            <div className="input-field col s6">
-            <input id="email" type="email" value={clienteSelecionado.email}  onChange={handleChange} />
-            <label htmlFor="email" className="active">E-mail</label>
-            </div>
-        </div>
-        <div className="row">
-            <div className="input-field col s6">
-            <input id="estado" type="text" value={clienteSelecionado.endereco.estado}  onChange={handleChange} />
-            <label htmlFor="estado" className="active">Estado</label>
-            </div>
-            <div className="input-field col s6">
-            <input id="cidade" type="text" value={clienteSelecionado.endereco.cidade}  onChange={handleChange} />
-            <label htmlFor="cidade" className="active">Cidade</label>
-            </div>
-        </div>
-        <div className="row">
-            <div className="input-field col s6">
-            <input id="bairro" type="text" value={clienteSelecionado.endereco.bairro}  onChange={handleChange} />
-            <label htmlFor="bairro" className="active">Bairro</label>
-            </div>
-            <div className="input-field col s6">
-            <input id="rua" type="text" value={clienteSelecionado.endereco.rua}  onChange={handleChange} />
-            <label htmlFor="rua" className="active">Rua</label>
-            </div>
-        </div>
-        <div className="row">
-            <div className="input-field col s6">
-            <input id="numero" type="text" value={clienteSelecionado.endereco.numero}  onChange={handleChange} />
-            <label htmlFor="numero" className="active">Número</label>
-            </div>
-            <div className="input-field col s6">
-            <input id="codigoPostal" type="text" value={clienteSelecionado.endereco.codigoPostal}  onChange={handleChange} />
-            <label htmlFor="codigoPostal" className="active">Código Postal</label>
-            </div>
-        </div>
-        <div className="row">
-            <div className="input-field col s12">
-            <textarea id="informacoesAdicionais" className="materialize-textarea" value={clienteSelecionado.endereco.informacoesAdicionais}  onChange={handleChange}></textarea>
-            <label htmlFor="informacoesAdicionais" className="active">Informações Adicionais</label>
-            </div>
-        </div>
-        <div className="row">
-            <div className="input-field col s6">
-            <input id="ddd" type="text" value={clienteSelecionado.telefones[0].ddd}  onChange={handleChange} />
-            <label htmlFor="ddd" className="active">DDD</label>
-            </div>
-            <div className="input-field col s6">
-            <input id="numeroTelefone" type="text" value={clienteSelecionado.telefones[0].numero}  onChange={handleChange} />
-            <label htmlFor="numeroTelefone" className="active">Número de Telefone</label>
-            </div>
-        </div>
-        <div className="row">
-            <div className="input-field col s6">
-            <input id="rel" type="text" value={clienteSelecionado}  onChange={handleChange} />
-            <label htmlFor="rel" className="active">Relação</label>
-            </div>
-            <div className="input-field col s6">
-            <input id="href" type="text" value={clienteSelecionado}  onChange={handleChange} />
-            <label htmlFor="href" className="active">Link</label>
-            </div>
-        </div>
-
-        
-        <div className=''>
-
-        <div className="row">
-            <button className="btn waves-effect waves-light" type="submit" name="action">Atualizar
-            <i className="material-icons right">border_color</i>
-            </button>
-        </div>
-        
-        <div className="row">
-            <button className="btn waves-effect waves-light red" type="button" name="action" onClick={() => Excluir(clienteSelecionado.id)}>Excluir
-                <i className="material-icons right">delete</i>
-            </button>
-        </div>
-        </div>
-
-        </form>
+                        <div className="row">
+                            <div className="input-field col s6">
+                                <input id="id" type="text" value={clienteSelecionado.id} readOnly />
+                                <label htmlFor="id" className="active">ID</label>
+                            </div>
+                            <div className="input-field col s6">
+                                <input id="nome" type="text" name="nome" value={clienteSelecionado.nome} onChange={handleChange} />
+                                <label htmlFor="nome" className="active">Nome</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s6">
+                                <input id="sobreNome" type="text" name="sobreNome" value={clienteSelecionado.sobreNome} onChange={handleChange} />
+                                <label htmlFor="sobreNome" className="active">Sobrenome</label>
+                            </div>
+                            <div className="input-field col s6">
+                                <input id="email" type="email" name="email" value={clienteSelecionado.email} onChange={handleChange} />
+                                <label htmlFor="email" className="active">Email</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s6">
+                                <input id="rua" type="text" name="endereco.rua" value={clienteSelecionado.endereco.rua} onChange={handleChange} />
+                                <label htmlFor="rua" className="active">Rua</label>
+                            </div>
+                            <div className="input-field col s6">
+                                <input id="numero" type="text" name="endereco.numero" value={clienteSelecionado.endereco.numero} onChange={handleChange} />
+                                <label htmlFor="numero" className="active">Número</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s6">
+                                <input id="bairro" type="text" name="endereco.bairro" value={clienteSelecionado.endereco.bairro} onChange={handleChange} />
+                                <label htmlFor="bairro" className="active">Bairro</label>
+                            </div>
+                            <div className="input-field col s6">
+                                <input id="cidade" type="text" name="endereco.cidade" value={clienteSelecionado.endereco.cidade} onChange={handleChange} />
+                                <label htmlFor="cidade" className="active">Cidade</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <textarea id="informacoesAdicionais" className="materialize-textarea" name="endereco.informacoesAdicionais" value={clienteSelecionado.endereco.informacoesAdicionais} onChange={handleChange}></textarea>
+                                <label htmlFor="informacoesAdicionais" className="active">Informações Adicionais</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s6">
+                                <input id="ddd" type="text" name="telefones.0.ddd" value={clienteSelecionado.telefones[0].ddd} onChange={handleChange} />
+                                <label htmlFor="ddd" className="active">DDD</label>
+                            </div>
+                            <div className="input-field col s6">
+                                <input id="numeroTelefone" type="text" name="telefones.0.numero" value={clienteSelecionado.telefones[0].numero} onChange={handleChange} />
+                                <label htmlFor="numeroTelefone" className="active">Número de Telefone</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <button className="btn waves-effect waves-light" type="submit" name="action">Atualizar
+                                <i className="material-icons right">border_color</i>
+                            </button>
+                        </div>
+                        <div className="row">
+                            <button className="btn waves-effect waves-light red" type="button" name="action" onClick={() => Excluir(clienteSelecionado.id)}>Excluir
+                                <i className="material-icons right">delete</i>
+                            </button>
+                        </div>
+                    </form>
     </div>
     )}
         </div>
