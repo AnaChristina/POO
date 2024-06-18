@@ -19,8 +19,6 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/atualizar" element={<AtualizarCliente />} />
-
-            
           </Routes>
         </div>
       </div>

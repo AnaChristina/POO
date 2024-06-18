@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
-
+import 'materialize-css/dist/css/materialize.min.css';
+import 'materialize-css/dist/js/materialize.min.js';
 
 
 export default function Home() {
@@ -174,8 +175,14 @@ return (
                                     <td>{cliente.email}</td>
                                     <td>{cliente.telefones.length > 0 ? `(${cliente.telefones[0].ddd}) ${cliente.telefones[0].numero}` : '-'}</td>
                                     <td>
-                                        <button className="waves-effect waves-light btn" onClick={() => VerMais(cliente.id)}>Ver mais</button>
-                                        <button className="waves-effect waves-light btn red" onClick={() => Excluir(cliente.id)}>Excluir</button>
+                                        <button className="waves-effect waves-light btn" onClick={() => VerMais(cliente.id)}>
+                                            Ver mais
+                                            <i className="material-icons right">remove_red_eye
+                                            </i>
+                                        </button>
+                                        <button className="waves-effect waves-light btn red" onClick={() => Excluir(cliente.id)}>Excluir
+                                            <i className="material-icons right">delete</i>
+                                        </button>
                                     </td>
                                 </tr>
                             ))
