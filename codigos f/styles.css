@@ -1,0 +1,12 @@
+.cabecalho{
+    font-weight: bold;
+    text-transform: uppercase;
+    color: rgb(210, 51, 176);
+}
+
+.txt{
+    font-weight: bold;
+    font-size: 28px;
+    color: rgb(86, 86, 86);
+}
+
