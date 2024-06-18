@@ -18,39 +18,37 @@ export default function AtualizarCliente({ clienteId }) {
         telefones: [],
         links: []
     });
+    const [clientes, setClientes] = useState([]);
 
     useEffect(() => {
-        // Aqui você pode fazer uma requisição para buscar os dados atuais do cliente pelo ID
-        // No exemplo, estou apenas definindo alguns dados fictícios para ilustração
-        const dadosCliente = {
-            id: clienteId,
-            nome: 'Fulano',
-            sobrenome: 'Silva',
-            email: 'fulano@email.com',
-            endereco: 'Rua Principal',
-            estado: 'Estado',
-            cidade: 'Cidade',
-            bairro: 'Bairro',
-            rua: 'Rua Principal',
-            numero: '123',
-            cep: '12345-678',
-            informacoesAdicionais: 'Informações adicionais',
-            telefones: [
-                { id: 1, ddd: '11', numero: '99999-9999' },
-                { id: 2, ddd: '11', numero: '88888-8888' }
-            ],
-            links: []
+        const buscarCliente = async (event) => {
+            console.log("Buscando clientes...");
+            try{
+                const {data} = await axios.get("http://localhost:32832/clientes");
+                console.log(data);
+                setClientes([data]);
+            }
+            catch (error){
+                if(error.response.status !=500){
+                console.log(error.response.data)
+                setClientes(error.response.data);
+            }
+            else if(error.response.status ===500){
+                console.log(error)
+            }
+            else {
+                setClientes([]);
+            }
+            }
         };
-
-        setCliente(dadosCliente);
+        buscarCliente();
     }, [clienteId]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log("Atualizando cliente:", cliente);
         try {
-            // Simular uma requisição PUT para atualizar os dados do cliente
-            await axios.put(`http://localhost:32832/clientes/${cliente.id}`, cliente);
+            await axios.put(`http://localhost:32832/cliente/atualizar${cliente.id}`, cliente);
             console.log("Cliente atualizado com sucesso!");
             // Lógica para exibir mensagem de sucesso ou redirecionar, se necessário
         } catch (error) {
@@ -196,17 +194,6 @@ export default function AtualizarCliente({ clienteId }) {
 
                     <div className="input-field col s6">
                         <input
-                            placeholder="Telefone"
-                            id="telefone"
-                            type="text"
-                            className="validate"
-                            name="telefones"
-                            value={cliente.telefones.length > 0 ? cliente.telefones[0].numero : ''}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input-field col s6">
-                        <input
                             placeholder="DDD"
                             id="ddd"
                             type="text"
@@ -218,24 +205,12 @@ export default function AtualizarCliente({ clienteId }) {
                     </div>
                     <div className="input-field col s6">
                         <input
-                            placeholder="Link"
-                            id="link"
+                            placeholder="Telefone"
+                            id="telefone"
                             type="text"
                             className="validate"
-                            name="links"
-                            value={cliente.links.length > 0 ? cliente.links[0].href : ''}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="input-field col s6">
-                        <input
-                            placeholder="Links"
-                            id="links"
-                            type="text"
-                            className="validate"
-                            name="links"
-                            value={cliente.links.length > 0 ? cliente.links[0].rel : ''}
+                            name="telefones"
+                            value={cliente.telefones.length > 0 ? cliente.telefones[0].numero : ''}
                             onChange={handleChange}
                         />
                     </div>
@@ -262,7 +237,7 @@ export default function AtualizarCliente({ clienteId }) {
                         />
                     </div>
 
-                    <button className="btn waves-effect waves-light" type="submit" name="action">Atualizar
+                    <button className="btn waves-effect waves-light" type="submit" name="action">Atualizarr
                         <i className="material-icons right">update</i>
                     </button>
                 </div>

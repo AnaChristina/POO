@@ -55,6 +55,17 @@ export default function Home() {
         }}
     }
 
+    const Excluir = async (clienteId) => {
+        console.log("Excluindo cliente...");
+        try {
+            await axios.delete("http://localhost:32832/cliente/excluir", { data: { id: clienteId } });
+            console.log("Cliente excluído com sucesso!");
+            buscarClientes();
+        } catch (error) {
+            console.error("Erro ao excluir cliente:", error);
+        }
+    };
+
 
 
     const VerMais = async (clienteId) => {
@@ -254,7 +265,6 @@ export default function Home() {
             </div>
         </div>
 
-        {/* aqui vaibotão para atualizar as informações e também de excluir usuário.  */}
         
         <div className=''>
 
@@ -265,8 +275,8 @@ export default function Home() {
         </div>
         
         <div className="row">
-            <button className="btn waves-effect waves-light" type="submit" name="action">Excluir
-            <i className="material-icons right">delete</i>
+            <button className="btn waves-effect waves-light red" type="button" name="action" onClick={() => Excluir(clienteSelecionado.id)}>Excluir
+                <i className="material-icons right">delete</i>
             </button>
         </div>
         </div>
