@@ -11,7 +11,7 @@ export default class CadastroCliente extends Cadastro {
         this.clientes = clientes
         this.entrada = new Entrada()
     }
-    public cadastrar(): void {
+    public cadastrar(cliente: Cliente): void {
         console.log(`\nInício do cadastro do cliente`);
         let nome = this.entrada.receberTexto(`Por favor informe o nome do cliente: `)
         let genero = this.entrada.receberTexto(`Por favor digite o genero do cliente: M para masculino e F para feminino: `)
